@@ -1,0 +1,27 @@
+# Docker volumes and data
+mysql-data/
+
+# WWW temporary files
+www/.bash_history
+www/.composer/
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.local
+
+# Logs
+*.log
+
+# Keep gitkeep
+!www/.gitkeep

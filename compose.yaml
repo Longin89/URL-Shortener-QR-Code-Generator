@@ -1,0 +1,58 @@
+services:
+  nginx:
+    container_name: yii_nginx
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - ./www:/var/www
+      - ./vhost.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - yii
+    depends_on:
+      - php
+
+  php:
+    container_name: yii_php
+    build: ./images/php81fpm
+    volumes:
+      - ./www:/var/www
+      - ./php.ini:/usr/local/etc/php/conf.d/php.ini
+    networks:
+      - yii
+    depends_on:
+      - mysql
+
+  mysql:
+    container_name: yii_mysql
+    image: mysql:9.3.0
+    volumes:
+      - ./www:/var/www
+      - ./my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./mysql-data:/var/lib/mysql
+    environment:
+      - MYSQL_USER=yii
+      - MYSQL_PASSWORD=yii
+      - MYSQL_ROOT_PASSWORD=yii
+      - MYSQL_DATABASE=yii
+    networks:
+      - yii
+
+  phpmyadmin:
+    container_name: yii_phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8080:80
+    environment:
+      - PMA_HOST=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=yii
+    networks:
+      - yii
+    depends_on:
+      - mysql
+    networks:
+      - yii
+
+networks:
+  yii:
