@@ -48,13 +48,8 @@ class UrlController extends Controller
 
         // Читаем JSON из тела
         $jsonData = json_decode(Yii::$app->request->rawBody, true);
-        if ($jsonData === null) {
-            // Если JSON не валиден, пробуем обычный POST
-            $model->load(Yii::$app->request->post(), '');
-        } else {
-            // Загружаем данные из JSON
-            $model->load($jsonData, '');
-        }
+        // Загружаем данные из JSON
+        $model->load($jsonData, '');
 
         // Создаем короткую ссылку и возвращаем результат
         if ($url = $model->createShortUrl()) {

@@ -45,12 +45,6 @@ tests/_support/_generated
 /web/assets/*
 !/web/assets/.gitignore
 
-# database config with credentials
-/config/db.php
-
 # environment files
 .env
 .env.local
-
-# debug files
-/web/index-test.php
